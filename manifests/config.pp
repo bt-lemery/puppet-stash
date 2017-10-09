@@ -61,6 +61,13 @@ class stash::config(
     notify  => Class['stash::service'],
   }
 
+  -> file { "${stash::webappdir}/conf":
+    ensure => directory,
+    owner   => $user,
+    group   => $group,
+    require => File[$stash::homedir],
+  }
+
   -> ini_setting { 'stash_httpport':
     ensure  => present,
     path    => "${stash::webappdir}/conf/scripts.cfg",
