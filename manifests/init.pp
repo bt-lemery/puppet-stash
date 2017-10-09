@@ -48,6 +48,8 @@ class stash(
   # Misc Settings
   $download_url = 'https://www.atlassian.com/software/stash/downloads/binary',
   $checksum     = undef,
+  $proxy_server = undef,
+  $proxy_type   = undef,
 
   # Backup Settings
   $backup_ensure          = 'present',

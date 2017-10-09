@@ -97,6 +97,8 @@ class stash::install(
         checksum        => $checksum,
         user            => $user,
         group           => $group,
+        proxy_server    => $stash::proxy_server,
+        proxy_type      => $shas::proxy_type,
         before          => File[$homedir],
         require         => [
           File[$installdir],
