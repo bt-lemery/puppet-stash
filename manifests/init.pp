@@ -52,6 +52,7 @@ class stash(
   $proxy_type   = undef,
 
   # Backup Settings
+  $manage_backup          = true,
   $backup_ensure          = 'present',
   $backupclient_url       = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
   $backupclient_version   = '1.9.1',
@@ -113,6 +114,9 @@ class stash(
   -> class { '::stash::install': webappdir => $webappdir, }
   -> class { '::stash::config': }
   ~> class { '::stash::service': }
-  -> class { '::stash::backup': }
-  -> anchor { 'stash::end': }
+  if $manage_backup == true {
+    Class['::stash::service'] -> class { '::stash::backup': } -> anchor { 'stash::end': }
+  } else {
+    Class['::stash::service'] -> anchor { 'stash::end': }
+  }
 }
