@@ -19,6 +19,8 @@ class stash::backup(
   $download_url         = $stash::backupclient_url,
   $backup_home          = $stash::backup_home,
   $javahome             = $stash::javahome,
+  $proxy_server         = $stash::proxy_server,
+  $proxy_type           = $stash::proxy_type,
   $keep_age             = $stash::backup_keep_age,
   ) {
 
@@ -73,6 +75,8 @@ class stash::backup(
         user            => $user,
         group           => $group,
         creates         => "${appdir}/lib",
+        proxy_server    => $proxy_server,
+        proxy_type      => $proxy_type,
         cleanup         => true,
         require         => [
           File[$appdir],
